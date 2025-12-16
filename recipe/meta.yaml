@@ -17,6 +17,10 @@ build:
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
@@ -24,12 +28,16 @@ requirements:
     - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
+    - r-mass
     - r-matrix
     - r-memisc
+    - r-nlme
   run:
     - r-base
+    - r-mass
     - r-matrix
     - r-memisc
+    - r-nlme
 
 test:
   commands:
@@ -39,13 +47,12 @@ test:
 about:
   home: https://www.elff.eu/software/mclogit/
   dev_url: https://github.com/melff/mclogit/
-  license: GPL-2.0-or-later
+  license: GPL-2.0-only
   summary: Provides estimators for multinomial logit models in their conditional logit and baseline logit variants, with or without random effects, with or without overdispersion. Random effects models are estimated using the PQL technique (based on a Laplace approximation) or the MQL technique (based on a Solomon-Cox approximation).
     Estimates should be treated with caution if the group sizes are small.
   license_family: GPL2
   license_file:
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:

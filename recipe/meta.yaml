@@ -1,4 +1,4 @@
-{% set version = '0.9.6' %}
+{% set version = "0.9.15" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,14 +9,18 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/mclogit_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/mclogit/mclogit_{{ version }}.tar.gz
-  sha256: 9adc5f6d8649960abe009c30d9b4c448ff7d174c455a594cbf104a33d5a36f69
+  sha256: c6a6179546869d944d2bb51a3d171d9eb15ee0375cf09067703a8dfe296c7faf
 
 build:
-  number: 3
+  number: 0
   noarch: generic
   rpaths:
     - lib/R/lib/
     - lib/
+  missing_dso_whitelist:
+    - '*/R.dll'        # [win]
+    - '*/Rblas.dll'    # [win]
+    - '*/Rlapack.dll'  # [win]
 
 requirements:
   build:
@@ -24,12 +28,16 @@ requirements:
     - cross-r-base {{ r_base }}    # [build_platform != target_platform]
   host:
     - r-base
+    - r-mass
     - r-matrix
     - r-memisc
+    - r-nlme
   run:
     - r-base
+    - r-mass
     - r-matrix
     - r-memisc
+    - r-nlme
 
 test:
   commands:
@@ -39,16 +47,12 @@ test:
 about:
   home: https://www.elff.eu/software/mclogit/
   dev_url: https://github.com/melff/mclogit/
-  license: GPL-2.0-or-later
-  summary: Provides estimators for multinomial logit models in their conditional logit and baseline
-    logit variants, with or without random effects, with or without overdispersion.
-    Random effects models are estimated using the PQL technique (based on a Laplace
-    approximation) or the MQL technique (based on a Solomon-Cox approximation). Estimates
-    should be treated with caution if the group sizes are small.
+  license: GPL-2.0-only
+  summary: Provides estimators for multinomial logit models in their conditional logit and baseline logit variants, with or without random effects, with or without overdispersion. Random effects models are estimated using the PQL technique (based on a Laplace approximation) or the MQL technique (based on a Solomon-Cox approximation).
+    Estimates should be treated with caution if the group sizes are small.
   license_family: GPL2
   license_file:
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:

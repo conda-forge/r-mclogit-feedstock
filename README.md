@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-mclogit-feeds
 
 Home: https://www.elff.eu/software/mclogit/
 
-Package license: GPL-2.0-or-later
+Package license: GPL-2.0-only
 
 Summary: Provides estimators for multinomial logit models in their conditional logit and baseline logit variants, with or without random effects, with or without overdispersion. Random effects models are estimated using the PQL technique (based on a Laplace approximation) or the MQL technique (based on a Solomon-Cox approximation). Estimates should be treated with caution if the group sizes are small.
 
